@@ -1,14 +1,6 @@
 export default function Footer() {
   return (
-    <footer
-      style={{
-        backgroundColor: "crimson",
-        color: "white",
-        padding: "18px",
-        textAlign: "center",
-        fontSize: "16px",
-      }}
-    >
+    <footer className="bg-red-700 text-white text-center p-4 text-sm">
       Copyrighted 2026
     </footer>
   );

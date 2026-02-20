@@ -2,26 +2,16 @@ import Intro from "@/components/intro";
 
 export default function Home() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-      <section
-        style={{
-          backgroundColor: "#FFFDD0",
-          padding: "20px",
-          borderRadius: "8px",
-        }}
-      >
+    <div className="flex flex-col gap-6">
+      
+      <section className="bg-amber-100 p-5 rounded-lg shadow">
         <Intro />
       </section>
 
-      <section
-        style={{
-          backgroundColor: "#FFFDD0",
-          padding: "20px",
-          borderRadius: "8px",
-        }}
-      >
+      <section className="bg-amber-100 p-5 rounded-lg shadow">
         <Intro />
       </section>
+
     </div>
   );
 }
