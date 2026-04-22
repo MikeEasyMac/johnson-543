@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import MobileMenu from "@/components/MobileMenu";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,18 +13,36 @@ const navLinks = [
 
 export default function Header() {
   return (
-    <header className="bg-red-700 text-white p-4 flex items-center justify-between flex-wrap gap-3">
-      <Link href="/" className="text-xl font-bold tracking-tight hover:opacity-90 transition">
+    <header className="relative bg-red-700 text-white px-6 py-4 flex items-center justify-between">
+      <Link
+        href="/"
+        className="text-xl font-bold tracking-tight hover:opacity-90 transition shrink-0"
+      >
         Michael Johnson
       </Link>
-      <nav className="flex items-center gap-5 text-sm flex-wrap">
+
+      {/* Desktop navigation */}
+      <nav
+        className="hidden md:flex items-center gap-5 text-sm"
+        aria-label="Main navigation"
+      >
         {navLinks.map(({ href, label }) => (
-          <Link key={href} href={href} className="hover:underline underline-offset-2 transition">
+          <Link
+            key={href}
+            href={href}
+            className="hover:underline underline-offset-4 transition"
+          >
             {label}
           </Link>
         ))}
         <ThemeToggle />
       </nav>
+
+      {/* Mobile: theme toggle + hamburger */}
+      <div className="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <MobileMenu />
+      </div>
     </header>
   );
 }

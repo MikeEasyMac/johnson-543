@@ -1,132 +1,65 @@
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import type { Metadata } from "next";
+import ProjectCard, { type Project } from "@/components/ProjectCard";
 
-type Project = {
-  title: string;
-  description: string;
-  techStack: string[];
-  githubUrl: string | null;
-  liveUrl: string | null;
-  status: "completed" | "in-progress";
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Technical projects by Michael Johnson — full-stack web development and cybersecurity work.",
 };
 
 const projects: Project[] = [
   {
     title: "Portfolio Website",
     description:
-      "A production-quality personal portfolio built with Next.js 16 (App Router), React 19, TypeScript, and MongoDB/Mongoose for data persistence. Features dark mode via next-themes, a RESTful API layer, and is deployed on Vercel. Demonstrates full-stack architecture with reusable component design.",
-    techStack: ["Next.js", "React", "TypeScript", "MongoDB", "Mongoose", "Tailwind CSS", "Vercel"],
+      "A full-stack personal portfolio built with Next.js 16 (App Router), React, TypeScript, and MongoDB/Mongoose. Features dark mode via next-themes, a contact form API, responsive layout, and is Vercel-ready.",
+    techStack: ["Next.js", "React", "TypeScript", "MongoDB", "Mongoose", "Tailwind CSS"],
     githubUrl: "https://github.com/mikeeasymac/johnson-543",
     liveUrl: null,
     status: "in-progress",
   },
   {
-    title: "Network Security Analyzer",
+    title: "RateMyClass — Full-Stack Academic Review Platform",
     description:
-      "A Python-based network traffic analysis tool that captures live packets using Scapy, identifies suspicious patterns (port scans, ARP spoofing, unusual traffic volume), and generates security reports. Includes a lightweight Flask web interface for visualizing captured traffic.",
-    techStack: ["Python", "Scapy", "Flask", "Linux", "Wireshark"],
-    githubUrl: null,
+      "A full-stack web application that allows students to review university courses, rate difficulty and workload, share academic materials, and browse peer feedback to make more informed academic decisions. Built with Python and Flask on the backend, MySQL and SQLAlchemy for relational data modeling, and AJAX-powered dynamic filtering for a smooth, no-reload browsing experience. Includes an admin moderation system for managing reviews and uploaded materials.",
+    techStack: ["Python", "Flask", "SQLAlchemy", "MySQL", "JavaScript", "AJAX", "HTML/CSS", "GCP"],
+    githubUrl: "https://github.com/MikeEasyMac/RateMyClass",
     liveUrl: null,
     status: "completed",
   },
   {
-    title: "Secure Authentication API",
+    title: "Smart Campus Monitor — Real-Time Monitoring System",
     description:
-      "A full-stack authentication system featuring JWT access/refresh token rotation, bcrypt password hashing, and role-based access control (RBAC). Hardened against CSRF, XSS, and brute-force attacks. Built with Node.js/Express on the backend and React on the frontend.",
-    techStack: ["Node.js", "Express", "MongoDB", "JWT", "bcrypt", "React", "TypeScript"],
-    githubUrl: null,
+      "A real-time monitoring system that collects and displays campus activity data through a FastAPI backend and a Streamlit dashboard. Tracks structured data streams, surfaces live status updates to administrators, and is built around a modular architecture designed to support additional data sources over time.",
+    techStack: ["Python", "FastAPI", "REST APIs", "JavaScript", "HTML/CSS", "Streamlit"],
+    githubUrl: "https://github.com/MikeEasyMac/smart-campus-monitor",
     liveUrl: null,
     status: "completed",
   },
   {
-    title: "CTF Challenge Write-ups",
+    title: "Hotel Management System — Booking & Administration Platform",
     description:
-      "An ongoing collection of documented solutions and methodologies for Capture the Flag (CTF) cybersecurity competitions. Covers web exploitation, SQL injection, cryptography, binary reverse engineering, and forensics — demonstrating practical offensive security skills in controlled environments.",
-    techStack: ["Python", "Linux", "GDB", "SQL", "Cryptography", "Burp Suite"],
-    githubUrl: null,
+      "A web-based hotel management application that allows users to browse available rooms and submit booking requests, while giving administrators a centralized dashboard to manage reservations, rooms, and user records. Built with PHP and MySQL on a normalized relational database backend, with dynamic frontend interactions for real-time availability updates. Implements secure session-based user authentication and full CRUD operations across all core system entities.",
+    techStack: ["PHP", "MySQL", "JavaScript", "HTML/CSS"],
+    githubUrl: "https://github.com/MikeEasyMac/hotel-management-system",
     liveUrl: null,
-    status: "in-progress",
+    status: "completed",
   },
 ];
 
-const statusStyles = {
-  completed: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
-  "in-progress": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300",
-};
-
-const statusLabels = {
-  completed: "Completed",
-  "in-progress": "In Progress",
-};
-
 export default function Projects() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 max-w-4xl">
       <div>
         <h1 className="text-3xl font-bold mb-2">Projects</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Full-stack web development and cybersecurity projects — built from scratch.
+          A showcase of my technical work across full-stack web development, backend systems,
+          and real-world application design.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <div
-            key={project.title}
-            className="bg-white dark:bg-gray-700 rounded-lg shadow p-6 flex flex-col gap-4"
-          >
-            {/* Title + Status */}
-            <div className="flex items-start justify-between gap-2">
-              <h2 className="font-bold text-lg leading-snug">{project.title}</h2>
-              <span
-                className={`text-xs px-2 py-1 rounded shrink-0 font-medium ${statusStyles[project.status]}`}
-              >
-                {statusLabels[project.status]}
-              </span>
-            </div>
-
-            {/* Description */}
-            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed flex-1">
-              {project.description}
-            </p>
-
-            {/* Tech Stack */}
-            <div className="flex flex-wrap gap-1.5">
-              {project.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 px-2 py-0.5 rounded"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            {/* Links */}
-            {(project.githubUrl || project.liveUrl) && (
-              <div className="flex gap-4 pt-3 border-t border-gray-100 dark:border-gray-600">
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm text-red-700 dark:text-red-400 hover:underline"
-                  >
-                    <FaGithub /> GitHub
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm text-red-700 dark:text-red-400 hover:underline"
-                  >
-                    <FaExternalLinkAlt /> Live Demo
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
     </div>
